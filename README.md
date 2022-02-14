@@ -99,3 +99,12 @@ Comme dit au début de l'exercice, tu as carte blanche sur le style de l'applica
 React-apollo permet de mieux gérer les requêtes GraphQL !
 
 Si tu as d'autres idées d'améliorations, n'hésite pas et fonce !
+
+
+### Instructions
+
+--Démarrage--
+
+`yarn` : installation des dépendances
+`yarn serve` : démarre le faux serveur GraphQL sur `localhost:3001`
+`yarn watch` : lance l'application, surveille le répertoire `src` et redémarre l'appli en cas de modifications
