@@ -1,44 +1,101 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# React challenge
 
-## Available Scripts
+## Instructions
 
-In the project directory, you can run:
+Objectif : Montrer tes compétences en React et Typescript, ainsi que découvrir notre stack technique.
 
-### `yarn start`
+La stack du challenge est composée de :   
+    - React.js  
+    - Typescript 
+    - redux 
+    - react-redux  
+    - redux-thunk  
+    - GraphQL  
+    - json-graphql-server (pour la mock data)  
+    - Material UI
+    - Styled Components
+    *- Optionnel : react-apollo*
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Ces librairies devront être installées en utilisant `yarn`.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Attention :** Afin de suivre ton progrès, tu devras commit ton code à chaque étape. Tu peux soit :
+- nous envoyer un lien public vers le repository de ton Github
+- nous envoyer ton dossier complet **en incluant le dossier .git** 
 
-### `yarn test`
+À noter : tu as carte blanche sur le style de la page, tant que tu utilises Material UI et les Styled Components.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+A tout moment, si tu es bloqué, n'hésite pas à chercher de l'aide sur Internet, ou à contourner le problème autrement.
 
-### `yarn build`
+## Résultat final : 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+À la fin de l'exercice, le fichier `App.ts` devrait retourner ceci : 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+<div>
+    <QuestionList />
+    <QuestionForm />
+</div>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Libre à toi d'inclure plusieurs sous-composants ou non à l'intérieur des deux composants principaux !
+## Première étape - Boilerplate
 
-### `yarn eject`
+Objectif : créer la structure du projet
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Pour se faire, le mieux est d'utiliser [Create React App](https://github.com/facebook/create-react-app).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tu peux directement créer une app Redux + Typescript avec le template `redux-typescript`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ Tu devras également installer un faux serveur GraphQL (https://github.com/marmelab/json-graphql-server) afin de traiter les mock data qui se trouvent dans le fichier `db.ts` que l'on a transmis avec les instructions.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Attention :** Pour ne pas créer de conflit entre l'app React et le serveur, il faut lancer le serveur avant l'app React.
 
-## Learn More
+## Seconde étape - Configurer Redux
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Libre à toi de choisir comment organiser tes fichiers concernant Redux, selon ce qu'il te semble plus pertinent.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Troisième étape - Afficher les questions / réponses
+
+Le but de cette étape est de récupérer les questions et les réponses du server et de les afficher. 
+
+Les informations devant être affichées :  
+  - La question  
+  - La réponse  
+  - L'auteur de la question
+
+## Quatrième étape - Ajouter une question
+
+Il faut créer un nouveau composant contenant le formulaire de création d'une question. Il faut pouvoir indiquer les mêmes informations que pour l'affichage d'une question (c.f. la troisième étape).
+
+Lorsqu'une question a été ajoutée, la liste doit être actualisée avec la nouvelle question.
+
+## Cinquième étape - Chercher une question
+
+Le but est d'ajouter un champ texte où l'on peut indiquer une chaîne de caractères à chercher parmi les questions.
+
+Bonus : implémenter la logique non seulement pour les questions, mais aussi les réponses.
+
+## Étape bonus
+
+Si jamais tu es encore friand de challenges, voici quelques idées d'ajouts : 
+
+### Bonus 1 : Ajouter un loader
+
+L'utilisateur ne sachant pas ce qu'il se passe au chargement de la reqûete, ajouter un loader afin de l'informer de ce qu'il se passe.
+
+### Bonus 2 : CRUD
+
+Il est possible d'afficher et de créer une question, mais tu peux également ajouter l'édition et la suppression d'une question !
+### Bonus 3 : Tests
+
+Ajouter différents tests (unitaires, intégration, etc.).
+
+### Bonus 4 : Styling
+
+Comme dit au début de l'exercice, tu as carte blanche sur le style de l'application.
+
+### Bonus 5 : Utiliser `react-apollo`
+
+React-apollo permet de mieux gérer les requêtes GraphQL !
+
+Si tu as d'autres idées d'améliorations, n'hésite pas et fonce !

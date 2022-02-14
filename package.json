@@ -12,17 +12,32 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
+    "graphql": "^16.3.0",
+    "json-graphql-server": "^2.3.1",
+    "material-ui": "^0.20.2",
+    "npm-watch": "^0.11.0",
     "react": "^17.0.2",
+    "react-apollo": "^3.1.5",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.0",
     "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "styled-components": "^5.3.3",
     "typescript": "~4.1.5"
+  },
+  "watch": {
+    "build": { 
+      "patterns": ["src"],
+      "extensions": "js,jsx,ts"
+    }
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "react-scripts start && npm-watch build",
+    "serve": "json-graphql-server db.ts --p 3001"
   },
   "eslintConfig": {
     "extends": "react-app"
