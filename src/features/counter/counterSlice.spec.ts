@@ -1,3 +1,4 @@
+/*
 import counterReducer, {
   CounterState,
   increment,
@@ -32,3 +33,6 @@ describe('counter reducer', () => {
     expect(actual.value).toEqual(5);
   });
 });
+*/
+
+export {}

@@ -50,9 +50,13 @@ Tu peux directement créer une app Redux + Typescript avec le template `redux-ty
 
 **Attention :** Pour ne pas créer de conflit entre l'app React et le serveur, il faut lancer le serveur avant l'app React.
 
+#### NB : OK
+
 ## Seconde étape - Configurer Redux
 
 Libre à toi de choisir comment organiser tes fichiers concernant Redux, selon ce qu'il te semble plus pertinent.
+
+#### NB : fait en avançant dans le challenge
 
 ## Troisième étape - Afficher les questions / réponses
 
@@ -62,6 +66,8 @@ Les informations devant être affichées :
   - La question  
   - La réponse  
   - L'auteur de la question
+
+#### NB : OK
 
 ## Quatrième étape - Ajouter une question
 
@@ -106,5 +112,7 @@ Si tu as d'autres idées d'améliorations, n'hésite pas et fonce !
 --Démarrage--
 
 `yarn` : installation des dépendances
+
 `yarn serve` : démarre le faux serveur GraphQL sur `localhost:3001`
-`yarn watch` : lance l'application, surveille le répertoire `src` et redémarre l'appli en cas de modifications
+
+`yarn watch` : lance l'application, surveille le répertoire `src` et redémarre l'appli en cas de modification sur `localhost:3000`
