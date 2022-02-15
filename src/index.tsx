@@ -5,20 +5,8 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
-import { client } from './constants/questionsAPI';
-
-// const client = new ApolloClient({
-//   uri: 'http://localhost:3001',
-//   cache: new InMemoryCache()
-// });
-
+import { ApolloProvider } from "@apollo/client";
+import { client } from './constants/clientAPI';
 
 ReactDOM.render(
   <ApolloProvider client={client}>

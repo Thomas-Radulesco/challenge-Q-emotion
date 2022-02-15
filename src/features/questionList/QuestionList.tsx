@@ -1,10 +1,11 @@
-import { GET_QUESTIONS } from "../../constants/questionsAPI";
+import { GET_QUESTIONS } from "../../constants/questionsQueries";
 import { useQuery } from '@apollo/client';
 import Question from './Question';
 import styles from './QuestionList.module.scss';
 
 
 export function QuestionList() {
+    
     
     const { loading, error, data } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
 
