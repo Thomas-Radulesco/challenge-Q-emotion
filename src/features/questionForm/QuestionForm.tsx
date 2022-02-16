@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NEW_QUESTION } from "../../constants/questionsMutations";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import styles from './QuestionForm.module.scss';
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
-
-interface QuestionList {
-    id: number;
-    question: string;
-    text: string;
-    user_id: number;
-}
-
-interface NewQuestionDetails {
-    question: string;
-    text: string;
-    user_id: number;
-}
+import { GET_USERS } from '../../constants/usersQueries';
 
 
 export function QuestionForm() {
@@ -27,29 +15,49 @@ export function QuestionForm() {
     const [saveQuestion, { data, loading, error }] = useMutation(NEW_QUESTION, {
         refetchQueries: [
             GET_QUESTIONS,
+            GET_USERS
         ],
     });
+
+    const authors = useQuery(GET_USERS);
+
+    const authorValidation = () => {
+        let availableAuthors = authors.data.allUsers.map((author: any) => (Number(author.id)))
+
+        if (availableAuthors.includes(userId)) {
+            return true;
+        }
+        return false;
+    };
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        let validAuthor = authorValidation();
+        if (validAuthor) { 
+            saveQuestion({ variables: {
+                question: question,
+                text: text,
+                user_id: userId
+            }})
+            setQuestion('');
+            setText('');
+            setUserId(0);
+        } else {
+            alert("Merci de sélectionner un auteur existant");
+        };
+    }
 
     if (loading) return (<p>Patientez svp...</p>);
 
     if (error) return (<p>Erreur ! {error.message}</p>);
 
-    // const dispatch = useAppDispatch();
-
     return (
         <div className={styles.row}>
             <div>
                 <h3>Ajouter une question</h3>
-                {data && data.saveQuestion ? <p>Saved!</p> : null}
+                {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
                 <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        saveQuestion({ variables: {
-                            question: question,
-                            text: text,
-                            user_id: userId
-                        }});
-                    }}>
+                    onSubmit={handleSubmit}>
                     <p>
                         <label>Question</label>
                         <input
@@ -66,11 +74,18 @@ export function QuestionForm() {
                     </p>
                     <p>
                         <label>Auteur</label>
-                        <input
-                            type="number"
+                        <select
                             name="user_id"
                             onChange={e => setUserId(+e.target.value)}
-                        />
+                            defaultValue={0}
+                        >
+                            <option value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</option>
+                            { authors.data && (
+                                authors.data.allUsers.map((author:any) => (
+                                    <option key={author.id} value={author.id}>{author.firstName} {author.lastName}</option>
+                                ))
+                            )}
+                        </select>
                     </p>
                     <button type="submit">
                         Ajouter

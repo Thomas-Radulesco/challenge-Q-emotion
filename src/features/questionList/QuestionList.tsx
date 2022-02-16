@@ -2,24 +2,25 @@ import { GET_QUESTIONS } from "../../constants/questionsQueries";
 import { useQuery } from '@apollo/client';
 import Question from './Question';
 import styles from './QuestionList.module.scss';
+import { GET_USERS } from "../../constants/usersQueries";
 
 
 export function QuestionList() {
-    
     
     const { loading, error, data } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
 
     if (loading) return <p>Loading...</p>;
     if (error) {
-        return (
-          <p className={styles.error}>
-              Error :
-              {error.graphQLErrors.map(({ message } : {message:string}, i) => (
-                  <span key={i}> {message}</span>
-              ))}
-              {error.networkError?.message}
-          </p>
-        )};
+      return (
+        <p className={styles.error}>
+          Error :
+          {error.graphQLErrors.map(({ message } : {message:string}, i) => (
+            <span key={i}> {message}</span>
+          ))}
+          {error.networkError?.message}
+        </p>
+      )};
+    
     return (
       <div>
         {data && (

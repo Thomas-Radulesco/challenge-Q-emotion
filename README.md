@@ -12,8 +12,8 @@ La stack du challenge est composée de :
     - redux-thunk  
     - GraphQL  
     - json-graphql-server (pour la mock data)  
-    - Material UI
-    - Styled Components
+    - Material UI  
+    - Styled Components  
     *- Optionnel : react-apollo*
 
 Ces librairies devront être installées en utilisant `yarn`.
@@ -74,6 +74,8 @@ Les informations devant être affichées :
 Il faut créer un nouveau composant contenant le formulaire de création d'une question. Il faut pouvoir indiquer les mêmes informations que pour l'affichage d'une question (c.f. la troisième étape).
 
 Lorsqu'une question a été ajoutée, la liste doit être actualisée avec la nouvelle question.
+
+#### NB : OK
 
 ## Cinquième étape - Chercher une question
 
