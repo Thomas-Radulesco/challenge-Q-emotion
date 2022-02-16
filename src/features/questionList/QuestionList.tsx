@@ -1,14 +1,14 @@
 import { GET_QUESTIONS } from "../../constants/questionsQueries";
 import { useQuery } from '@apollo/client';
 import Question from './Question';
+import QuestionSearch from './QuestionSearch';
 import styles from './QuestionList.module.scss';
-import { GET_USERS } from "../../constants/usersQueries";
 
 
 export function QuestionList() {
     
-    const { loading, error, data } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
-
+    const { loading, error, data, refetch } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
+    
     if (loading) return <p>Loading...</p>;
     if (error) {
       return (
@@ -23,6 +23,7 @@ export function QuestionList() {
     
     return (
       <div>
+        <QuestionSearch refetch={refetch}/>
         {data && (
           <>
             {data.allQuestions.map((question:any) => (

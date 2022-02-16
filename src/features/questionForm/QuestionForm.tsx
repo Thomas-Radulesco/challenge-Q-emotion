@@ -63,6 +63,7 @@ export function QuestionForm() {
                         <input
                             name="question"
                             onChange={e => setQuestion(e.target.value)}
+                            value={question}
                         />
                     </p>
                     <p>
@@ -70,6 +71,7 @@ export function QuestionForm() {
                         <input
                             name="text"
                             onChange={e => setText(e.target.value)}
+                            value={text}
                         />
                     </p>
                     <p>
