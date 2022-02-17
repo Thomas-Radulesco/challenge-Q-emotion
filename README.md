@@ -83,6 +83,8 @@ Le but est d'ajouter un champ texte où l'on peut indiquer une chaîne de caract
 
 Bonus : implémenter la logique non seulement pour les questions, mais aussi les réponses.
 
+#### NB : OK
+
 ## Étape bonus
 
 Si jamais tu es encore friand de challenges, voici quelques idées d'ajouts : 
@@ -90,6 +92,8 @@ Si jamais tu es encore friand de challenges, voici quelques idées d'ajouts :
 ### Bonus 1 : Ajouter un loader
 
 L'utilisateur ne sachant pas ce qu'il se passe au chargement de la reqûete, ajouter un loader afin de l'informer de ce qu'il se passe.
+
+#### NB : OK
 
 ### Bonus 2 : CRUD
 

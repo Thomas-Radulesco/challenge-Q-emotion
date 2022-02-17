@@ -1,9 +1,30 @@
+@import '../../styles/vars';
+
 .row {
-    background-color: rgb(37, 43, 42);
-    color: rgb(239, 243, 245);
+    background-color: $main-color;
+    color: $focus-secondary-color;
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
 }
 
 .error {
-    background-color: red;
-    color: white;
+    background-color: $focus-primary-color;
+    color: $focus-secondary-color;
+}
+
+.loadingNotice,
+.loadingIndicator {
+    color: $focus-secondary-color;
+    text-shadow: -1px 0 $main-color, 0 1px $main-color, 1px 0 $main-color, 0 -1px $main-color;
+}
+
+.loadingIndicator {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+}
+
+.question, .text, .user {
+    margin: 0.5rem;
 }

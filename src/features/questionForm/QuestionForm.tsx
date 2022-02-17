@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NEW_QUESTION } from "../../constants/questionsMutations";
 import { useMutation, useQuery } from '@apollo/client';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import styles from './QuestionForm.module.scss';
+import styles from '../questionForm/QuestionForm.module.scss';
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
 
@@ -52,13 +51,14 @@ export function QuestionForm() {
     if (error) return (<p>Erreur ! {error.message}</p>);
 
     return (
-        <div className={styles.row}>
-            <div>
-                <h3>Ajouter une question</h3>
+        <div className="row">
+            <div className='formContainer'>
+                <h3 className={styles.formTitle}>Ajouter une question</h3>
                 {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
                 <form
-                    onSubmit={handleSubmit}>
-                    <p>
+                    onSubmit={handleSubmit}
+                    className="newQuestionForm">
+                    <p className={styles.formField}>
                         <label>Question</label>
                         <input
                             name="question"
@@ -66,7 +66,7 @@ export function QuestionForm() {
                             value={question}
                         />
                     </p>
-                    <p>
+                    <p className={styles.formField}>
                         <label>Réponse</label>
                         <input
                             name="text"
@@ -74,7 +74,7 @@ export function QuestionForm() {
                             value={text}
                         />
                     </p>
-                    <p>
+                    <p className={styles.formField}>
                         <label>Auteur</label>
                         <select
                             name="user_id"
@@ -89,7 +89,7 @@ export function QuestionForm() {
                             )}
                         </select>
                     </p>
-                    <button type="submit">
+                    <button className={styles.formSubmit} type="submit">
                         Ajouter
                     </button>
                 </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import { QuestionList } from './features/questionList/QuestionList';
 import { QuestionForm } from './features/questionForm/QuestionForm';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   return (

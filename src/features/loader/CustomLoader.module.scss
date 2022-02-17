@@ -1,0 +1,50 @@
+@import '../../styles/vars';
+
+svg.circularProgressBarSpinning {
+    margin-top: 4rem;
+    width: 4rem;
+    animation: 2s linear infinite svg-animation;
+  }
+  
+  // SVG animation.
+  @keyframes svg-animation {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg)
+    }
+  }
+  
+  // Circle styles.
+  .circularProgressBarSpinning>circle {
+    animation: 1.4s ease-in-out infinite both circle-animation;
+    display: block;
+    fill: transparent;
+    stroke: $focus-secondary-color;
+    stroke-linecap: butt;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 98;
+    stroke-width: 10;
+    transform-origin: 50% 50%;
+  }
+  
+  // Circle animation.
+  @keyframes circle-animation {
+    0%,
+    25% {
+      stroke-dashoffset: 98;
+      transform: rotate(0);
+    }
+    
+    50%,
+    75% {
+      stroke-dashoffset: 25;
+      transform: rotate(45deg);
+    }
+    
+    100% {
+      stroke-dashoffset: 98;
+      transform: rotate(360deg);
+    }
+  }

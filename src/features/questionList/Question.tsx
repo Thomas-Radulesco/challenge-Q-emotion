@@ -3,11 +3,11 @@ import styles from './QuestionList.module.scss';
 const Question = (props:any) => {
   const { question } = props;
   return (
-    <div className={styles.row}>
+    <div className="row">
       <div>
-        <p>Question : {question.question}</p>
-        <p>Réponse : {question.text}</p>
-        <p>Auteur : {question.User.firstName} {question.User.lastName}</p>
+        <p className={styles.question}>Question : {question.question}</p>
+        <p className={styles.text}>Réponse : {question.text}</p>
+        <p className={styles.user}>Auteur : {question.User.firstName} {question.User.lastName}</p>
       </div>
     </div>
   );

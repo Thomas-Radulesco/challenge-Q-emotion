@@ -1,4 +1,11 @@
+@import '../../styles/vars';
+
 .row {
-    background-color: rgb(60, 225, 236);
-    color: white;
+    background-color: $main-color;
+    color: $focus-secondary-color;
+    
+}
+
+.formTitle, .formField, .formSubmit {
+    margin: 1rem;
 }

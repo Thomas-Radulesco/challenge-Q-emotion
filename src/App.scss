@@ -1,0 +1,30 @@
+@import './styles/_reset.css';
+@import './styles/vars';
+
+body {
+  background-color: $secondary-color;
+  color: $focus-secondary-color;
+  font-family: $code-font;
+  align-items: center;
+  justify-content: center;
+}
+
+.App {
+  text-align: center;
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  background-color: $main-color;
+  color: $focus-secondary-color;
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.formContainer {
+  
+}

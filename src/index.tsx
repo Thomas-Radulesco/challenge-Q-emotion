@@ -1,21 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from "@apollo/client";
 import { client } from './constants/clientAPI';
+import { store } from './app/store';
+const AppPromise = import('./App');
+const App = React.lazy(() => AppPromise);
+debugger;
 
 ReactDOM.render(
+  <React.Suspense fallback={
+    <div className="loadingAppNotice">
+      Bienvenue 😄 <br/>
+      Librairies ... OK !<br/>
+      Application ... CHARGEMENT <span className="animatedSpinningBarApp"></span>
+    </div>
+  }>
   <ApolloProvider client={client}>
     <React.StrictMode>
       <Provider store={store}>
         <App />
       </Provider>
     </React.StrictMode>
-  </ApolloProvider>,
+  </ApolloProvider>
+  </React.Suspense>,
   document.getElementById('root')
 );
 
