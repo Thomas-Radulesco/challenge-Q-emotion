@@ -51,49 +51,47 @@ export function QuestionForm() {
     if (error) return (<p>Erreur ! {error.message}</p>);
 
     return (
-        <div className="row">
-            <div className='formContainer'>
-                <h3 className={styles.formTitle}>Ajouter une question</h3>
-                {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
-                <form
-                    onSubmit={handleSubmit}
-                    className="newQuestionForm">
-                    <p className={styles.formField}>
-                        <label>Question</label>
-                        <input
-                            name="question"
-                            onChange={e => setQuestion(e.target.value)}
-                            value={question}
-                        />
-                    </p>
-                    <p className={styles.formField}>
-                        <label>Réponse</label>
-                        <input
-                            name="text"
-                            onChange={e => setText(e.target.value)}
-                            value={text}
-                        />
-                    </p>
-                    <p className={styles.formField}>
-                        <label>Auteur</label>
-                        <select
-                            name="user_id"
-                            onChange={e => setUserId(+e.target.value)}
-                            defaultValue={0}
-                        >
-                            <option value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</option>
-                            { authors.data && (
-                                authors.data.allUsers.map((author:any) => (
-                                    <option key={author.id} value={author.id}>{author.firstName} {author.lastName}</option>
-                                ))
-                            )}
-                        </select>
-                    </p>
-                    <button className={styles.formSubmit} type="submit">
-                        Ajouter
-                    </button>
-                </form>
-            </div>
+        <div className='row formContainer'>
+            <h3 className="formTitle">Ajouter une question</h3>
+            {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
+            <form
+                onSubmit={handleSubmit}
+                className="newQuestionForm">
+                <div className="formField">
+                    <label>Question</label>
+                    <input
+                        name="question"
+                        onChange={e => setQuestion(e.target.value)}
+                        value={question}
+                    />
+                </div>
+                <div className="formField">
+                    <label>Réponse</label>
+                    <input
+                        name="text"
+                        onChange={e => setText(e.target.value)}
+                        value={text}
+                    />
+                </div>
+                <div className="formField">
+                    <label>Auteur</label>
+                    <select
+                        name="user_id"
+                        onChange={e => setUserId(+e.target.value)}
+                        defaultValue={0}
+                    >
+                        <option value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</option>
+                        { authors.data && (
+                            authors.data.allUsers.map((author:any) => (
+                                <option key={author.id} value={author.id}>{author.firstName} {author.lastName}</option>
+                            ))
+                        )}
+                    </select>
+                </div>
+                <button className="formSubmit" type="submit">
+                    Ajouter
+                </button>
+            </form>
         </div>
     );
 };

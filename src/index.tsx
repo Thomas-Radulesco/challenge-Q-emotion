@@ -8,7 +8,6 @@ import { client } from './constants/clientAPI';
 import { store } from './app/store';
 const AppPromise = import('./App');
 const App = React.lazy(() => AppPromise);
-debugger;
 
 ReactDOM.render(
   <React.Suspense fallback={

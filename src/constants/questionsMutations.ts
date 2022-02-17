@@ -10,3 +10,14 @@ mutation createNewQuestion($question: String!, $text: String!, $user_id: ID!) {
     }
 }
 `;
+
+export const DELETE_QUESTION = gql`
+mutation deleteQuestion($id: ID!){
+    removeQuestion(id: $id) {
+        id
+        question
+        text
+        user_id
+    }
+  }
+`;
