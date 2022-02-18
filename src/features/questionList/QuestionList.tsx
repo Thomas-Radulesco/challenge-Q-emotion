@@ -6,7 +6,7 @@ import CustomLoader from "../loader/CustomLoader";
 import styles from './QuestionList.module.scss';
 
 
-export function QuestionList() {
+const QuestionList = () => {
     
     const { loading, error, data, refetch } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
     
@@ -34,11 +34,15 @@ export function QuestionList() {
         <QuestionSearch refetch={refetch}/>
         {data && (
           <>
-            {data.allQuestions.map((question:any) => (
-              <Question key={question.id} question={question} />
-            ))}
+            {data.allQuestions.map((question:any) => {              
+              return (
+                <Question key={question.id} question={question} />
+            )})}
           </>
         )}
       </div>
     );
 };
+
+
+export default QuestionList;
