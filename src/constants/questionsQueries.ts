@@ -6,7 +6,9 @@ query getQuestion($q: String) {
         id
         question
         text
+        user_id
         User {
+            id
             firstName
             lastName
         }

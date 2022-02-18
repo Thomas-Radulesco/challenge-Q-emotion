@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { NEW_QUESTION } from "../../constants/questionsMutations";
 import { useMutation, useQuery } from '@apollo/client';
-import styles from '../questionForm/QuestionForm.module.scss';
+import { UPDATE_QUESTION } from "../../constants/questionsMutations";
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
 
+const EditQuestion = ({question, setEdition} : {question: any, setEdition: any}) => {
 
-const QuestionForm = () => {
     const [formState, setFormState] = useState({
-        question: '',
-        text: '',
-        userId: 0
+        question: question.question,
+        text: question.text,
+        userId: question.user_id
     });
 
-    const [saveQuestion, { data, loading, error }] = useMutation(NEW_QUESTION, {
+    const [updateQuestion, { data, loading, error }] = useMutation(UPDATE_QUESTION, {
         refetchQueries: [
             GET_QUESTIONS,
             GET_USERS
@@ -23,19 +22,24 @@ const QuestionForm = () => {
     const authors = useQuery(GET_USERS);
 
     const authorValidation = () => {
-        let availableAuthors = authors.data.allUsers.map((author: any) => (Number(author.id)))
-
-        if (availableAuthors.includes(formState.userId)) {
+        let availableAuthors = authors.data.allUsers.map((author: any) => (Number(author.id)));
+        
+        if (availableAuthors.includes(Number(formState.userId))) {
             return true;
         }
         return false;
     };
 
+    const cancelEdition = () => {
+        setEdition(false);
+    }
+
     const handleSubmit = (e: any) => {
         e.preventDefault();
         let validAuthor = authorValidation();
         if (validAuthor) { 
-            saveQuestion({ variables: {
+            updateQuestion({ variables: {
+                id: question.id,
                 question: formState.question,
                 text: formState.text,
                 user_id: formState.userId
@@ -45,6 +49,7 @@ const QuestionForm = () => {
                 text: '',
                 userId: 0
             })
+            setEdition(false);
         } else {
             alert("Merci de sélectionner un auteur existant");
         };
@@ -54,9 +59,10 @@ const QuestionForm = () => {
 
     if (error) return (<p>Erreur ! {error.message}</p>);
 
+
     return (
         <div className='row formContainer'>
-            <h3 className="formTitle">Ajouter une question</h3>
+            <h3 className="formTitle">Modifier la question</h3>
             {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
             <form
                 onSubmit={handleSubmit}
@@ -90,7 +96,7 @@ const QuestionForm = () => {
                             ...formState,
                             userId: +e.target.value
                         })}
-                        defaultValue={0}
+                        defaultValue={question.user_id}
                     >
                         <option value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</option>
                         { authors.data && (
@@ -100,12 +106,15 @@ const QuestionForm = () => {
                         )}
                     </select>
                 </div>
+                <button className="formCancel" type="button" onClick={cancelEdition}>
+                    Annuler
+                </button>
                 <button className="formSubmit" type="submit">
-                    Ajouter
+                    Sauvegarder
                 </button>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default QuestionForm;
+export default EditQuestion;

@@ -9,7 +9,7 @@ import styles from './QuestionList.module.scss';
 
 const DeleteQuestion = ({question} : {question: any}) => {
     
-    const [deleteQuestion, { data, loading, error }] = useMutation(DELETE_QUESTION, {
+    const [deleteQuestion] = useMutation(DELETE_QUESTION, {
         refetchQueries: [
             GET_QUESTIONS,
             GET_USERS
@@ -17,9 +17,19 @@ const DeleteQuestion = ({question} : {question: any}) => {
     });
 
     const handleDelete = () => {
-        deleteQuestion({ variables: {
-            id: question.id
-        }})
+        let questionText = question.question.split(' '); 
+        if (questionText.length > 6) {
+            questionText.splice(5);
+            questionText.push('...');
+        };
+        questionText = questionText.join(' ');
+        // eslint-disable-next-line no-restricted-globals
+        let confirmDeletion = confirm(`Êtes-vous sûr de vouloir supprimer la question "${questionText}" ?`);
+        if (confirmDeletion) {
+            deleteQuestion({ variables: {
+                id: question.id
+            }})
+        }
     }
 
     return(
