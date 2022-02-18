@@ -98,6 +98,8 @@ L'utilisateur ne sachant pas ce qu'il se passe au chargement de la reqûete, ajo
 ### Bonus 2 : CRUD
 
 Il est possible d'afficher et de créer une question, mais tu peux également ajouter l'édition et la suppression d'une question !
+
+#### NB : OK
 ### Bonus 3 : Tests
 
 Ajouter différents tests (unitaires, intégration, etc.).

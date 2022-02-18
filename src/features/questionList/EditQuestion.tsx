@@ -66,8 +66,9 @@ const EditQuestion = ({question, setEdition} : {question: any, setEdition: any})
             {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
             <form
                 onSubmit={handleSubmit}
-                className="newQuestionForm">
+                className="editQuestionForm">
                 <div className="formField">
+                    <label>Question</label>
                     <input
                         name="question"
                         onChange={e => setFormState({
@@ -79,6 +80,7 @@ const EditQuestion = ({question, setEdition} : {question: any, setEdition: any})
                     />
                 </div>
                 <div className="formField">
+                    <label>Réponse</label>
                     <input
                         name="text"
                         onChange={e => setFormState({
@@ -90,6 +92,7 @@ const EditQuestion = ({question, setEdition} : {question: any, setEdition: any})
                     />
                 </div>
                 <div className="formField">
+                    <label>Auteur</label>
                     <select
                         name="user_id"
                         onChange={e => setFormState({

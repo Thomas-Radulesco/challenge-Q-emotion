@@ -1,23 +1,36 @@
 import { GET_QUESTIONS } from "../../constants/questionsQueries";
-import { useQuery } from '@apollo/client';
+import { NetworkStatus, useQuery } from '@apollo/client';
 import Question from './Question';
 import QuestionSearch from './QuestionSearch';
 import CustomLoader from "../loader/CustomLoader";
-import styles from './QuestionList.module.scss';
 
 
 const QuestionList = () => {
     
-    const { loading, error, data, refetch } = useQuery(GET_QUESTIONS, { errorPolicy: 'all' });
+    const { error, data, refetch, networkStatus } = useQuery(GET_QUESTIONS, {
+      errorPolicy: 'all',
+      notifyOnNetworkStatusChange: true
+    });
     
-    if (loading) return (
-      <div className={styles.loadingNotice}>
-        <div className={styles.loadingSpinner}>
-          <CustomLoader/>
-          <div className={styles.loadingIndicator}>Chargement des questions ...</div>
-        </div>            
-      </div>
+    let nbOfResults = 0;
+
+    if(data) {
+      nbOfResults = data.allQuestions.length;
+    };
+
+    if (networkStatus === NetworkStatus.refetch)       
+      return (
+      <CustomLoader props={{
+        message: 'Recherche des questions ...'
+      }}/>
     );
+
+    if (networkStatus === NetworkStatus.loading) return (
+      <CustomLoader props={{
+        message: 'Chargement des questions ...'
+      }}/>
+    );
+
     if (error) {
       return (
         <p className="error">
@@ -30,8 +43,11 @@ const QuestionList = () => {
       )};
     
     return (
-      <div>
+      <div data-testid="questionList">
         <QuestionSearch refetch={refetch}/>
+        {nbOfResults===0 && (
+          <p>Pas de résultat</p>
+        )}
         {data && (
           <>
             {data.allQuestions.map((question:any) => {              

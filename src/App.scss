@@ -37,6 +37,13 @@ label {
   &>input,
   &>select {
     margin-left: 2rem;
+    width: 80%;
+    background-color: #272727;
+    border: 0;
+    border-bottom: solid 1px #505050;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
   }
 }
 
@@ -44,4 +51,20 @@ label {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.formSubmit,
+.formCancel {
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 7px;
+  background-color: $submit-color;
+  color: $focus-secondary-color;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.formCancel {
+  background-color: $cancel-color;
 }

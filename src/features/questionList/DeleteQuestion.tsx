@@ -34,7 +34,7 @@ const DeleteQuestion = ({question} : {question: any}) => {
 
     return(
         <div className={styles.deleteQuestion} onClick={handleDelete}>
-            <FontAwesomeIcon icon={faTrashCan} color="#ff2b83" />
+            <FontAwesomeIcon icon={faTrashCan} color="#FC1983" />
         </div>
         )
 }
