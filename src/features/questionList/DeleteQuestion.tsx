@@ -33,7 +33,7 @@ const DeleteQuestion = ({question} : {question: any}) => {
     }
 
     return(
-        <div className={styles.deleteQuestion} onClick={handleDelete}>
+        <div className={styles.deleteQuestion} onClick={handleDelete} role="button" aria-label="deleteButton">
             <FontAwesomeIcon icon={faTrashCan} color="#FC1983" />
         </div>
         )

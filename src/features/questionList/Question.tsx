@@ -18,7 +18,7 @@ const Question = (props:any) => {
   return (
     <div className="row">
 
-      <div className={styles.questionActions}>
+      <div className={styles.questionActions} data-testid="actions">
 
         <div className={styles.editQuestion} onClick={handleEdit}>
           <FontAwesomeIcon icon={faPenToSquare} color="#ffe649" />
@@ -32,7 +32,7 @@ const Question = (props:any) => {
       }
 
       {!edition &&
-        <div>
+        <div data-testid="question">
           <p className={styles.question}>Question : {question.question}</p>
           <p className={styles.text}>Réponse : {question.text}</p>
           <p className={styles.user}>Auteur : {question.User.firstName} {question.User.lastName}</p>
