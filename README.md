@@ -100,9 +100,12 @@ L'utilisateur ne sachant pas ce qu'il se passe au chargement de la reqûete, ajo
 Il est possible d'afficher et de créer une question, mais tu peux également ajouter l'édition et la suppression d'une question !
 
 #### NB : OK
+
 ### Bonus 3 : Tests
 
 Ajouter différents tests (unitaires, intégration, etc.).
+
+#### NB : OK
 
 ### Bonus 4 : Styling
 
@@ -124,3 +127,5 @@ Si tu as d'autres idées d'améliorations, n'hésite pas et fonce !
 `yarn serve` : démarre le faux serveur GraphQL sur `localhost:3001`
 
 `yarn watch` : lance l'application, surveille le répertoire `src` et redémarre l'appli en cas de modification sur `localhost:3000`
+
+`yarn test` : lance les tests

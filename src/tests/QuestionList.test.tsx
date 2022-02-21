@@ -77,7 +77,11 @@ describe("Actions component", () => {
         expect(window.confirm.arguments).toContain("Êtes-vous sûr de vouloir supprimer la question");
         // waitFor(() => screen.getByRole('confirm'));
       }, 100);
-      
     });
   });
+
+  it("opens edit form when click on edit", async () => {
+    
+  });
+
 });
