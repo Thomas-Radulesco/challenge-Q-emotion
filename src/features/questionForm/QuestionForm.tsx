@@ -42,7 +42,7 @@ const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ the
     },
 }));
 
-const StyledFormBox = styled(Box)<BoxProps>(({ theme }) => ({
+const StyledFormBox = styled(Box)<BoxProps>(() => ({
     position: "fixed",
     top: "1rem",
     left: "2rem",
@@ -99,25 +99,32 @@ const QuestionForm = () => {
     };
 
     const open = useAppSelector(selectOpen);
-    console.log(open);
     const dispatch = useAppDispatch();
 
     if (error) return (<p>Erreur ! {error.message}</p>);
 
     return (
         <>
-        {!open &&
-            <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpen())}>
-                <AddIcon />
-            </StyledFabAddFormButton>
-        }
-        {open &&
-            <Grow 
+        
+            <Zoom
+                in={!open}
+                style={{
+                    transformOrigin: '2rem 1rem',
+                }}
+                timeout={200}
+            >
+                <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpen())}>
+                    <AddIcon />
+                </StyledFabAddFormButton>
+            </Zoom>
+        
+       
+            <Zoom 
                 in={open}
                 style={{
-                    transformOrigin: '-20rem 1rem',
-                    transformBox: 'content-box',
+                    transformOrigin: '2rem 1rem',
                 }}
+                timeout={200}
             >
                 <StyledFormBox
                     className={`row formContainer ${open ? 'open' : ''}`}
@@ -192,8 +199,8 @@ const QuestionForm = () => {
                         </StyledAddQuestionButton>
                     </Box>
                 </StyledFormBox>
-            </Grow>
-        }
+            </Zoom>
+        
         </>
     );
 };
