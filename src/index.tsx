@@ -4,8 +4,10 @@ import './index.css';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from "@apollo/client";
+import { ThemeProvider } from 'styled-components';
 import { client } from './constants/clientAPI';
 import { store } from './app/store';
+import theme from './styles/theme';
 const AppPromise = import('./App');
 const App = React.lazy(() => AppPromise);
 
@@ -20,7 +22,9 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </React.StrictMode>
   </ApolloProvider>

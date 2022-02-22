@@ -117,6 +117,7 @@ React-apollo permet de mieux gérer les requêtes GraphQL !
 
 Si tu as d'autres idées d'améliorations, n'hésite pas et fonce !
 
+#### NB : OK
 
 ### Instructions
 

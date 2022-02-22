@@ -4,7 +4,55 @@ import { useMutation, useQuery } from '@apollo/client';
 import styles from '../questionForm/QuestionForm.module.scss';
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
+import { toggleOpen, selectOpen } from './questionFormSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Box, { BoxProps } from '@mui/material/Box';
+import Zoom from '@mui/material/Zoom';
+import Grow from '@mui/material/Grow';
+import IconButton from '@mui/material/IconButton';
+import { TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
+import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import styled from 'styled-components';
+import { darken } from '@mui/material/styles';
 
+const StyledFabAddFormButton = styled(Fab) `
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+`;
+
+const StyledCancelButton = styled(IconButton) `
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    color : ${(props: any) => props.theme.text.main};
+`;
+
+const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
+    backgroundColor: theme.form.submit,
+    color: theme.text.main,
+    fontWeight: 700,
+    fontSize: "1.1rem",
+    '&:hover' : {
+        backgroundColor: darken(theme.form.submit, 0.3)
+    },
+}));
+
+const StyledFormBox = styled(Box)<BoxProps>(({ theme }) => ({
+    position: "fixed",
+    top: "1rem",
+    left: "2rem",
+    boxShadow: "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
+    padding: "2rem",
+}));
+
+const StyledTextField = styled(TextField) `
+    margin-top: 1rem;
+`;
 
 const QuestionForm = () => {
     const [formState, setFormState] = useState({
@@ -48,63 +96,105 @@ const QuestionForm = () => {
         } else {
             alert("Merci de sélectionner un auteur existant");
         };
-    }
+    };
 
-    if (loading) return (<p>Patientez svp...</p>);
+    const open = useAppSelector(selectOpen);
+    console.log(open);
+    const dispatch = useAppDispatch();
 
     if (error) return (<p>Erreur ! {error.message}</p>);
 
     return (
-        <div className='row formContainer'>
-            <h3 className="formTitle">Ajouter une question</h3>
-            {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
-            <form
-                onSubmit={handleSubmit}
-                className="newQuestionForm">
-                <div className="formField">
-                    <input
-                        name="question"
-                        onChange={e => setFormState({
-                            ...formState,
-                            question: e.target.value
-                        })}
-                        value={formState.question}
-                        placeholder="Question"
-                    />
-                </div>
-                <div className="formField">
-                    <input
-                        name="text"
-                        onChange={e => setFormState({
-                            ...formState,
-                            text: e.target.value
-                        })}
-                        value={formState.text}
-                        placeholder="Réponse"
-                    />
-                </div>
-                <div className="formField">
-                    <select
-                        name="user_id"
-                        onChange={e => setFormState({
-                            ...formState,
-                            userId: +e.target.value
-                        })}
-                        defaultValue={0}
+        <>
+        {!open &&
+            <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpen())}>
+                <AddIcon />
+            </StyledFabAddFormButton>
+        }
+        {open &&
+            <Grow 
+                in={open}
+                style={{
+                    transformOrigin: '-20rem 1rem',
+                    transformBox: 'content-box',
+                }}
+            >
+                <StyledFormBox
+                    className={`row formContainer ${open ? 'open' : ''}`}
+                >
+                    <StyledCancelButton aria-label="back" onClick={() => dispatch(toggleOpen())}>
+                        <ArrowBackIcon />
+                    </StyledCancelButton>
+                    <h3 className="formTitle">Ajouter une question</h3>
+                    {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit}
                     >
-                        <option value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</option>
-                        { authors.data && (
-                            authors.data.allUsers.map((author:any) => (
-                                <option key={author.id} value={author.id}>{author.firstName} {author.lastName}</option>
-                            ))
-                        )}
-                    </select>
-                </div>
-                <button className="formSubmit" type="submit">
-                    Ajouter
-                </button>
-            </form>
-        </div>
+                        <StyledTextField 
+                            name='question'
+                            onChange={e => setFormState({
+                                ...formState,
+                                question: e.target.value
+                            })}
+                            value={formState.question}
+                            helperText="Tapez la question"
+                            variant="standard"
+                            fullWidth
+                            label="Question"
+                        />
+                        <StyledTextField
+                            name='text'
+                            onChange={e => setFormState({
+                                ...formState,
+                                text: e.target.value
+                            })}
+                            value={formState.text}
+                            helperText="Tapez la réponse"
+                            variant="standard"
+                            fullWidth
+                            label="Réponse"
+                            sx={{
+                                mt: 1
+                            }}
+                        />
+                        <FormControl required fullWidth variant='standard' sx={{mt: 2, textAlign: "start"}}>
+                            <InputLabel>
+                                Auteur
+                            </InputLabel>
+                            <Select
+                                name="user_id"
+                                onChange={e => setFormState({
+                                    ...formState,
+                                    userId: +e.target.value
+                                })}
+                                defaultValue={0}
+                                label="Auteur"
+                                value={formState.userId}
+                            >
+                                <MenuItem value={0} disabled>{authors.loading ? 'Chargement des auteurs' : authors.error ? 'Erreur de chargement des auteurs, merci de recharger la page' : 'Sélectionner un auteur'}</MenuItem>
+                                { authors.data && (
+                                    authors.data.allUsers.map((author:any) => (
+                                        <MenuItem key={author.id} value={author.id}>{author.firstName} {author.lastName}</MenuItem>
+                                    ))
+                                )}                            
+                            </Select>
+                            <FormHelperText>Sélectionner l'auteur (requis)</FormHelperText>
+                        </FormControl>
+                        <StyledAddQuestionButton
+                            loading={loading}
+                            loadingPosition="start"
+                            startIcon={<SaveIcon />}
+                            variant="contained"
+                            type='submit'
+                        >
+                            Ajouter
+                        </StyledAddQuestionButton>
+                    </Box>
+                </StyledFormBox>
+            </Grow>
+        }
+        </>
     );
 };
 
