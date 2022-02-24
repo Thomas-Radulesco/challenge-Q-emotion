@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useAppDispatch } from '../app/hooks';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -53,7 +51,7 @@ const RichDialogBox = ({props}: RichDialogBoxProps) => {
     const handleClose = () => {
         richDialogBoxProps.setOpen(false);
     };
-    
+
 return (
     <div>
       <Dialog

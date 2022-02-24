@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
 import { NEW_QUESTION } from "../../constants/questionsMutations";
 import { useMutation, useQuery } from '@apollo/client';
-import styles from '../questionForm/QuestionForm.module.scss';
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
 import { toggleOpen, selectOpen } from './questionFormSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import Zoom from '@mui/material/Zoom';
 import Grow from '@mui/material/Grow';
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import {
     StyledFabAddFormButton,
-    // StyledSimpleButton,
     StyledAddQuestionButton,
     StyledFormBox,
-    StyledTextField,
-    StyledRichBoxHeader,
-    StyledReturnActionsButtons,
-    StyledRichBoxTitle } from '../../styles/styledComponents';
+    StyledTextField
+} from '../../styles/styledComponents';
 import RichBoxHeader from '../../richComponents/RichBoxHeader';
 import theme from '../../styles/theme';
 import RichDialogBox from '../../richComponents/RichDialogBox';
-
 
 const QuestionForm = () => {
     const [formState, setFormState] = useState({
@@ -116,7 +108,6 @@ const QuestionForm = () => {
 
     return (
         <>
-        
             <Grow
                 in={!open}
                 style={{
@@ -144,7 +135,7 @@ const QuestionForm = () => {
                     >
                         <StyledTextField 
                             name='question'
-                            onChange={e => setFormState({
+                            onChange={(e: any) => setFormState({
                                 ...formState,
                                 question: e.target.value
                             })}
@@ -156,7 +147,7 @@ const QuestionForm = () => {
                         />
                         <StyledTextField
                             name='text'
-                            onChange={e => setFormState({
+                            onChange={(e: any) => setFormState({
                                 ...formState,
                                 text: e.target.value
                             })}

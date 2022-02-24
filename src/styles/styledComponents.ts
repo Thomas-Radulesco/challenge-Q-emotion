@@ -1,5 +1,5 @@
 import Fab from '@mui/material/Fab';
-import IconButton, {IconButtonProps} from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import Box, { BoxProps } from '@mui/material/Box';
@@ -12,15 +12,7 @@ top: 1rem;
 left: 1rem;
 `;
 
-// export const StyledSimpleButton = styled(IconButton) `
-//     color : ${(props: any) => props.theme.text.main};
-// `;
-
-// export const StyledSimpleButton = styled(IconButton)<IconButtonProps>((colorArg) => ({
-//     color: colorArg,
-// }));
-
-export const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
+export const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ theme } : { theme: any}) => ({
     backgroundColor: theme.form.submit,
     color: theme.text.main,
     fontWeight: 700,

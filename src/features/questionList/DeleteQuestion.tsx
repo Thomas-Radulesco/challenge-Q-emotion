@@ -1,13 +1,9 @@
-import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { DELETE_QUESTION } from "../../constants/questionsMutations";
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
-import { StyledDeleteIconButton } from '../../styles/styledComponents';
-import DeleteIcon from '@mui/icons-material/Delete';
 import theme from '../../styles/theme';
 import RichDialogBox from '../../richComponents/RichDialogBox';
-
 
 const DeleteQuestion = ({question, deletion, setDeletion} : {question: any, deletion: boolean, setDeletion: any}) => {
     
@@ -40,7 +36,7 @@ const DeleteQuestion = ({question, deletion, setDeletion} : {question: any, dele
         });
     };
 
-    const richDialogBoxProps = {
+    const deleteQuestionDialogBox = {
         'props': {
             'open': deletion,
             'setOpen': setDeletion,
@@ -65,7 +61,7 @@ const DeleteQuestion = ({question, deletion, setDeletion} : {question: any, dele
 
 
     return(
-        <RichDialogBox {...richDialogBoxProps}/>
+        <RichDialogBox {...deleteQuestionDialogBox}/>
     );
 };
 
