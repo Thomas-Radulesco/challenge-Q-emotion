@@ -17,16 +17,3 @@
 .question, .text, .user {
     margin: 0.5rem;
 }
-
-.questionActions {
-    display: flex;
-    width: 40px;
-    justify-content: space-between;
-    position: absolute;
-    right: 2rem;
-}
-
-.editQuestion,
-.deleteQuestion {
-    cursor: pointer;
-}

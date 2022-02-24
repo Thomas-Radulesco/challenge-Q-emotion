@@ -1,13 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { useMutation, useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { DELETE_QUESTION } from "../../constants/questionsMutations";
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
-import styles from './QuestionList.module.scss';
+import { StyledDeleteIconButton } from '../../styles/styledComponents';
+import DeleteIcon from '@mui/icons-material/Delete';
+import theme from '../../styles/theme';
+import RichDialogBox from '../../richComponents/RichDialogBox';
 
 
-const DeleteQuestion = ({question} : {question: any}) => {
+const DeleteQuestion = ({question, deletion, setDeletion} : {question: any, deletion: boolean, setDeletion: any}) => {
     
     const [deleteQuestion] = useMutation(DELETE_QUESTION, {
         refetchQueries: [
@@ -16,27 +18,55 @@ const DeleteQuestion = ({question} : {question: any}) => {
         ],
     });
 
-    const handleDelete = () => {
+    const cancelDeletion = () => {
+        setDeletion(false);
+    };
+
+    const getLimitedQuestionText = () => {
         let questionText = question.question.split(' '); 
         if (questionText.length > 6) {
             questionText.splice(5);
             questionText.push('...');
         };
         questionText = questionText.join(' ');
-        // eslint-disable-next-line no-restricted-globals
-        let confirmDeletion = confirm(`Êtes-vous sûr de vouloir supprimer la question "${questionText}" ?`);
-        if (confirmDeletion) {
-            deleteQuestion({ variables: {
+        return questionText;
+    };
+
+    const deleteThisQuestion = () => {
+        deleteQuestion({
+            variables: {
                 id: question.id
-            }})
-        }
-    }
+            }
+        });
+    };
+
+    const richDialogBoxProps = {
+        'props': {
+            'open': deletion,
+            'setOpen': setDeletion,
+            'title': 'Confirmer la suppression',
+            'text': `Êtes-vous sûr de vouloir supprimer la question "${getLimitedQuestionText()}" ?`,
+            'actions': {
+                'noAction': {
+                    'bgColor': theme.form.submit,
+                    'color': theme.text.main,
+                    'buttonText': 'Annuler',
+                    'handler': cancelDeletion,
+                },
+                'yesAction': {
+                    'bgColor': theme.form.cancel,
+                    'color': theme.text.main,
+                    'buttonText': 'Supprimer',
+                    'handler': deleteThisQuestion,
+                },
+            },
+        },
+    };
+
 
     return(
-        <div className={styles.deleteQuestion} onClick={handleDelete} role="button" aria-label="deleteButton">
-            <FontAwesomeIcon icon={faTrashCan} color="#FC1983" />
-        </div>
-        )
-}
+        <RichDialogBox {...richDialogBoxProps}/>
+    );
+};
 
 export default DeleteQuestion;

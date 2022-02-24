@@ -6,53 +6,27 @@ import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
 import { toggleOpen, selectOpen } from './questionFormSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Box, { BoxProps } from '@mui/material/Box';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
 import Zoom from '@mui/material/Zoom';
 import Grow from '@mui/material/Grow';
-import IconButton from '@mui/material/IconButton';
-import { TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
-import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import styled from 'styled-components';
-import { darken } from '@mui/material/styles';
+import {
+    StyledFabAddFormButton,
+    // StyledSimpleButton,
+    StyledAddQuestionButton,
+    StyledFormBox,
+    StyledTextField,
+    StyledRichBoxHeader,
+    StyledReturnActionsButtons,
+    StyledRichBoxTitle } from '../../styles/styledComponents';
+import RichBoxHeader from '../../richComponents/RichBoxHeader';
+import theme from '../../styles/theme';
+import RichDialogBox from '../../richComponents/RichDialogBox';
 
-const StyledFabAddFormButton = styled(Fab) `
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-`;
-
-const StyledCancelButton = styled(IconButton) `
-    position: absolute;
-    top: 1rem;
-    left: 2rem;
-    color : ${(props: any) => props.theme.text.main};
-`;
-
-const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ theme }) => ({
-    backgroundColor: theme.form.submit,
-    color: theme.text.main,
-    fontWeight: 700,
-    fontSize: "1.1rem",
-    '&:hover' : {
-        backgroundColor: darken(theme.form.submit, 0.3)
-    },
-}));
-
-const StyledFormBox = styled(Box)<BoxProps>(() => ({
-    position: "fixed",
-    top: "1rem",
-    left: "2rem",
-    boxShadow: "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
-    padding: "2rem",
-}));
-
-const StyledTextField = styled(TextField) `
-    margin-top: 1rem;
-`;
 
 const QuestionForm = () => {
     const [formState, setFormState] = useState({
@@ -60,6 +34,12 @@ const QuestionForm = () => {
         text: '',
         userId: 0
     });
+
+    const [openAlert, setOpenAlert] = useState(false);
+
+    const toggleOpenAlert = () => {
+        setOpenAlert(!openAlert);
+    };
 
     const [saveQuestion, { data, loading, error }] = useMutation(NEW_QUESTION, {
         refetchQueries: [
@@ -94,8 +74,39 @@ const QuestionForm = () => {
                 userId: 0
             })
         } else {
-            alert("Merci de sélectionner un auteur existant");
+            setOpenAlert(true);
         };
+    };
+
+    const formHeaderProps = {
+        'props': {
+            'title': 'Ajouter une question',
+            'actions': {
+                'returnActions': {
+                    'closeButton': {
+                        'action': toggleOpen,
+                        'color': theme.text.main,
+                    },
+                },
+            },
+        },
+    };
+
+    const richDialogBoxProps = {
+        'props': {
+            'open': openAlert,
+            'setOpen': setOpenAlert,
+            'title': 'Erreur',
+            'text': 'Merci de sélectionner un auteur existant',
+            'actions': {
+                'yesAction': {
+                    'bgColor': theme.form.submit,
+                    'color': theme.text.main,
+                    'buttonText': 'OK',
+                    'handler': toggleOpenAlert,
+                },
+            },
+        },
     };
 
     const open = useAppSelector(selectOpen);
@@ -106,33 +117,26 @@ const QuestionForm = () => {
     return (
         <>
         
-            <Zoom
+            <Grow
                 in={!open}
                 style={{
                     transformOrigin: '2rem 1rem',
                 }}
-                timeout={200}
-            >
+                timeout={300}>
                 <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpen())}>
                     <AddIcon />
                 </StyledFabAddFormButton>
-            </Zoom>
+            </Grow>
         
-       
-            <Zoom 
+            <Grow 
                 in={open}
                 style={{
                     transformOrigin: '2rem 1rem',
                 }}
-                timeout={200}
-            >
+                timeout={300}>
                 <StyledFormBox
-                    className={`row formContainer ${open ? 'open' : ''}`}
-                >
-                    <StyledCancelButton aria-label="back" onClick={() => dispatch(toggleOpen())}>
-                        <ArrowBackIcon />
-                    </StyledCancelButton>
-                    <h3 className="formTitle">Ajouter une question</h3>
+                    className={`row formContainer ${open ? 'open' : ''}`}>
+                    <RichBoxHeader {...formHeaderProps} />
                     {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
                     <Box
                         component="form"
@@ -165,7 +169,7 @@ const QuestionForm = () => {
                                 mt: 1
                             }}
                         />
-                        <FormControl required fullWidth variant='standard' sx={{mt: 2, textAlign: "start"}}>
+                        <FormControl required fullWidth variant='standard' sx={{mt: 2, mb:2, textAlign: "start"}}>
                             <InputLabel>
                                 Auteur
                             </InputLabel>
@@ -199,8 +203,9 @@ const QuestionForm = () => {
                         </StyledAddQuestionButton>
                     </Box>
                 </StyledFormBox>
-            </Zoom>
+            </Grow>
         
+            <RichDialogBox {...richDialogBoxProps}/>
         </>
     );
 };
