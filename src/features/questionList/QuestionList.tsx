@@ -44,7 +44,7 @@ const QuestionList = () => {
     
     return (
       <div data-testid="questionList">
-        <QuestionSearch refetch={refetch}/>
+        <QuestionSearch refetch={refetch} loading={networkStatus}/>
         {nbOfResults===0 && (
           <p>Pas de résultat</p>
         )}

@@ -7,12 +7,13 @@ import styled from 'styled-components';
 import { darken } from '@mui/material/styles';
 
 export const StyledFabAddFormButton = styled(Fab) `
-position: fixed;
-top: 1rem;
-left: 1rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1;
 `;
 
-export const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>(({ theme } : { theme: any}) => ({
+export const StyledSubmitFormButton = styled(LoadingButton)<LoadingButtonProps>(({ theme } : { theme: any}) => ({
     backgroundColor: theme.form.submit,
     color: theme.text.main,
     fontWeight: 700,
@@ -22,14 +23,23 @@ export const StyledAddQuestionButton = styled(LoadingButton)<LoadingButtonProps>
     },
 }));
 
-export const StyledFormBox = styled(Box)<BoxProps>(() => ({
+export const StyledFabSearchFormButton = styled(StyledFabAddFormButton) `
+    top: 7rem;
+`;
+
+export const StyledAddFormBox = styled(Box)<BoxProps>(() => ({
     position: "fixed",
     top: "1rem",
     left: "2rem",
     boxShadow: "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
     padding: "1rem 2rem 2rem 2rem",
     marginRight: "2rem",
+    zIndex: 1,
 }));
+
+export const StyledSearchFormBox = styled(StyledAddFormBox) `
+    top: 7rem;
+`;
 
 export const StyledTextField = styled(TextField) `
     margin-top: 1rem;

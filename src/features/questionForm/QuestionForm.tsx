@@ -3,7 +3,7 @@ import { NEW_QUESTION } from "../../constants/questionsMutations";
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_QUESTIONS } from '../../constants/questionsQueries';
 import { GET_USERS } from '../../constants/usersQueries';
-import { toggleOpen, selectOpen } from './questionFormSlice';
+import { toggleOpenAdd, selectOpenAdd } from '../questionList/questionListSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
@@ -12,8 +12,8 @@ import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/
 import SaveIcon from '@mui/icons-material/Save';
 import {
     StyledFabAddFormButton,
-    StyledAddQuestionButton,
-    StyledFormBox,
+    StyledSubmitFormButton,
+    StyledAddFormBox,
     StyledTextField
 } from '../../styles/styledComponents';
 import RichBoxHeader from '../../richComponents/RichBoxHeader';
@@ -76,7 +76,7 @@ const QuestionForm = () => {
             'actions': {
                 'returnActions': {
                     'closeButton': {
-                        'action': toggleOpen,
+                        'action': toggleOpenAdd,
                         'color': theme.text.main,
                     },
                 },
@@ -101,7 +101,7 @@ const QuestionForm = () => {
         },
     };
 
-    const open = useAppSelector(selectOpen);
+    const openAdd = useAppSelector(selectOpenAdd);
     const dispatch = useAppDispatch();
 
     if (error) return (<p>Erreur ! {error.message}</p>);
@@ -109,24 +109,24 @@ const QuestionForm = () => {
     return (
         <>
             <Grow
-                in={!open}
+                in={!openAdd}
                 style={{
                     transformOrigin: '2rem 1rem',
                 }}
                 timeout={300}>
-                <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpen())}>
+                <StyledFabAddFormButton color="primary" aria-label="add" onClick={() => dispatch(toggleOpenAdd())}>
                     <AddIcon />
                 </StyledFabAddFormButton>
             </Grow>
         
             <Grow 
-                in={open}
+                in={openAdd}
                 style={{
                     transformOrigin: '2rem 1rem',
                 }}
                 timeout={300}>
-                <StyledFormBox
-                    className={`row formContainer ${open ? 'open' : ''}`}>
+                <StyledAddFormBox
+                    className={`row formContainer ${openAdd ? 'open' : ''}`}>
                     <RichBoxHeader {...formHeaderProps} />
                     {data && data.createQuestion ? <p className='success'>Question sauvegardée !</p> : null}
                     <Box
@@ -183,7 +183,7 @@ const QuestionForm = () => {
                             </Select>
                             <FormHelperText>Sélectionner l'auteur (requis)</FormHelperText>
                         </FormControl>
-                        <StyledAddQuestionButton
+                        <StyledSubmitFormButton
                             loading={loading}
                             loadingPosition="start"
                             startIcon={<SaveIcon />}
@@ -191,9 +191,9 @@ const QuestionForm = () => {
                             type='submit'
                         >
                             Ajouter
-                        </StyledAddQuestionButton>
+                        </StyledSubmitFormButton>
                     </Box>
-                </StyledFormBox>
+                </StyledAddFormBox>
             </Grow>
         
             <RichDialogBox {...richDialogBoxProps}/>

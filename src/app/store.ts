@@ -1,12 +1,8 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import questionsReducer from '../features/questionList/questionListSlice';
-import formReducer from '../features/questionForm/questionFormSlice';
+import questionListReducer from '../features/questionList/questionListSlice';
 
 export const store = configureStore({
-  reducer: {
-    questions: questionsReducer,
-    form: formReducer,
-  },
+  reducer: questionListReducer,
 });
 
 export type AppDispatch = typeof store.dispatch;
